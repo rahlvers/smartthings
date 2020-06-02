@@ -78,19 +78,7 @@ def pageStart(){
             description: advancedSettingsDescription(),
             image: "https://terms-612db.firebaseapp.com/ringalarm/images/noun_Settings_1713433.png"
         }
-
-        if(resetTokens) {
-         	def selection = settings.resetTokens
-            log.trace "ringApiSettings() -> User selection for Reset Tokens - ${selection}"
-            if(selection == "Yes") {
-            	log.trace "ringApiSettings() -> Removing Tokens"
-                state.remove('ringRefreshKey')
-                state.remove('ringAccessKey')
-                state.remove('ringZID')
-                state.remove('ringLocationId')
-            }
-        }
-        
+      
         section() {
             paragraph title: "About", 
             image: "https://terms-612db.firebaseapp.com/ringalarm/images/noun_about_2508117.png",

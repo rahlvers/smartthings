@@ -78,7 +78,7 @@ def pageStart(){
             description: advancedSettingsDescription(),
             image: "https://terms-612db.firebaseapp.com/ringalarm/images/noun_Settings_1713433.png"
         }
-        
+      
         section() {
             paragraph title: "About", 
             image: "https://terms-612db.firebaseapp.com/ringalarm/images/noun_about_2508117.png",
@@ -332,6 +332,8 @@ def awsAPISettings() {
         section("Ring Alarm AWS API Settings") {
             input(name: "apiurl", type: "text", title: "API Url", required: "true", description: "Ring Alarm AWS API URL/Endpoint")
             input(name: "apikey", type: "text", title: "API Key", required: "true", description: "Ring Alarm AWS API Key")
+            input(name: "ringLocationId", type: "text", title: "Ring Location ID", required: "true", description: "Ring Alarm Location ID")
+            input(name: "ringZID", type: "text", title: "Ring ZID", required: "true", description: "Ring Alarm ZID")
         }
         
         section {
@@ -734,7 +736,7 @@ def ringApiCall(route){
     def accessKey = ringGetAccessAndRefreshToken()
 
     if(!accessKey?.trim()) {
-        log.error "ringApiCall() -> Access Token is Null/Empty. Aboritng api call for route `${route}`"
+        log.error "ringApiCall() -> Access Token is Null/Empty. Aborting api call for route `${route}`"
         return null
     }
 
@@ -753,8 +755,8 @@ def ringApiCall(route){
             password: settings.password,
             refreshToken: state.ringRefreshKey,
             accessToken: accessKey,
-            locationId: state.ringLocationId,
-            zid: state.ringZID,
+            locationId: settings.ringLocationId,
+            zid: settings.ringZID,
             historyLimit: 10
         ]
     ]
